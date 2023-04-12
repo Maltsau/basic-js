@@ -15,18 +15,14 @@ function getCommonCharacterCount(str1, str2) {
   const arr1 = str1.split("");
   const arr2 = str2.split("");
   let count = 0;
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr2.length; j++) {
-      if (arr1[i] === arr2[j]) {
-        count++;
-        arr1.slice(i, 0);
-        arr2.slice(j, 0);
-      }
+  arr1.forEach((char) => {
+    if (arr2.includes(char)) {
+      count++;
+      arr2.splice(arr2.indexOf(char), 1);
     }
-  }
+  });
   return count;
 }
-console.log(getCommonCharacterCount("str1", "str2"));
 
 module.exports = {
   getCommonCharacterCount,
