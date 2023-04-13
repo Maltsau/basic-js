@@ -24,8 +24,6 @@ function encodeLine(str) {
   return result.replace(/1/g, "");
 }
 
-encodeLine("aabbbcaaa");
-
 module.exports = {
   encodeLine,
 };
