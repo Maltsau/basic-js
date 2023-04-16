@@ -10,11 +10,11 @@ const { NotImplementedError } = require("../extensions/index.js");
  * @return {Array<Array>}
  *
  * @example
- * matrix = [
- *  [true, false, false],
- *  [false, true, false],
- *  [false, false, false]
- * ]
+ matrix = [
+ [true, false, false],
+ [false, true, false],
+ [false, false, false]
+ ]
  *
  * The result should be following:
  * [
@@ -24,58 +24,53 @@ const { NotImplementedError } = require("../extensions/index.js");
  * ]
  */
 function minesweeper(matrix) {
-  throw new NotImplementedError("Not implemented");
-  // const result = matrix.map((row, i) =>
-  //   row.map((col, j) => {
-  //     let item = 0;
-  //     // console.log(matrix[10][10]);
-  //     if (
-  //       matrix[i][j] ||
-  //       (i !== matrix.length && matrix[i + 1][j]) ||
-  //       (i !== 0 && matrix[i - 1][j]) ||
-  //       (j !== row.length && matrix[i][j + 1]) ||
-  //       (j !== 0 && matrix[i][j - 1])
-  //     ) {
-  //       item++;
-  //     }
-  //     return item;
-  //   })
-  // );
-  // const result = [];
-  // for (let i = 0; i < matrix.length; i++) {
-  //   result.push([]);
-  //   for (let j = 0; j < matrix[i].length; j++) {
-  //     let item = 0;
-  //     if (matrix[i][j]) item++;
-  //     if (i - 1 >= 0 && matrix[i - 1][j]) item++;
-  //     if (i + 1 <= matrix.length && matrix[i + 1][j]) item++;
-  //     if (j - 1 > 0 && matrix[i][j - 1]) item++;
-  //     if (j + 1 <= matrix[i].length && matrix[i][j + 1]) item++;
-  //     result[i][j] = item;
-  //   }
-  // }
-  // return result;
-  //   const result = [];
-  //   for (let i = 0; i < matrix.length; i++) {
-  //   result.push([]);
-  //   for (let j = 0; j < matrix[i].length; j++) {
-  //     let bombs = 0;
-  //     for (let row = i - 1; row <= i + 1; row++) {
-  //       for (let col = j - 1; col <= j + 1; col++) {
-  //         if (row >= 0 && row < matrix.length && col >= 0 && col < matrix[i].length) {
-  //           if (matrix[row][col]) {
-  //             bombs++;
-  //           }
-  //         }
-  //       }
-  //     }
-  //     if (matrix[i][j]) {
-  //       bombs--;
-  //     }
-  //     result[i][j] = bombs;
-  //   }
-  //   }
-  //   return result;
+  console.log("matrix", matrix);
+  const result = [];
+  for (let row = 0; row < matrix.length; row++) {
+    result.push([]);
+    for (let col = 0; col < matrix[row].length; col++) {
+      let bombsArround = 0;
+      if (row > 0 && col > 0 && matrix[row - 1][col - 1]) {
+        bombsArround++;
+        console.log("north-west");
+      }
+      if (row > 0 && matrix[row - 1][col]) {
+        bombsArround++;
+        console.log("north");
+      }
+      if (row > 0 && col < matrix[row].length - 1 && matrix[row - 1][col + 1]) {
+        bombsArround++;
+        console.log("north-east");
+      }
+      if (col < matrix[row].length - 1 && matrix[row][col + 1]) {
+        bombsArround++;
+        console.log("east");
+      }
+      if (
+        row < matrix.length - 1 &&
+        col < matrix[row].length - 1 &&
+        matrix[row + 1][col + 1]
+      ) {
+        bombsArround++;
+        console.log("south-east");
+      }
+      if (row < matrix.length - 1 && matrix[row + 1][col]) {
+        bombsArround++;
+        console.log("south");
+      }
+      if (row < matrix.length - 1 && col > 0 && matrix[row + 1][col - 1]) {
+        bombsArround++;
+        console.log("south-west");
+      }
+      if (col > 0 && matrix[row][col - 1]) {
+        bombsArround++;
+        console.log("west");
+      }
+      result[row].push(bombsArround);
+    }
+  }
+  console.log("result", result);
+  return result;
 }
 
 module.exports = {
