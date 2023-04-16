@@ -16,65 +16,37 @@ const { NotImplementedError } = require("../extensions/index.js");
  *
  */
 
-function repeater(/* str, options */) {
-  throw new NotImplementedError("Not implemented");
-  // remove line with error and write your code here
+function repeater(str, options) {
+  if (
+    options.addition === null ||
+    options.addition === false ||
+    Object.hasOwnProperty(options.addition)
+  ) {
+    options.addition = String(options.addition);
+  }
+  if (str === null || Object.hasOwnProperty(str)) {
+    str = String(str);
+  }
+  const repeatTimes = options.repeatTimes || 1;
+  const additionRepeatTimes = options.additionRepeatTimes || 1;
+  const separator = options.separator || "+";
+  const additionSeparator = options.additionSeparator || "|";
+  const addition = options.addition || "";
+
+  let eachPart = str;
+  const eachAdd = [];
+  for (let i = 1; i <= additionRepeatTimes; i++) {
+    eachAdd.push(addition);
+  }
+  eachPart += eachAdd.join(additionSeparator);
+
+  let result = [];
+  for (let i = 1; i <= repeatTimes; i++) {
+    result.push(eachPart);
+  }
+  result = result.join(separator);
+  return result;
 }
-// function repeater(/*str, options*/) {
-// const repeatTimes = options.repeatTimes || 1;
-// const separator = options.separator || "+";
-// const addition = options.addition.toString() || "";
-// const additionRepeatTimes = options.additionRepeatTimes || 1;
-// const additionSeparator = options.additionSeparator || "|";
-// // let eachPart = str.toString();
-// let eachPart =
-//   str.toString() +
-//   (options.addition.toString !== "undefined"
-//     ? addition + additionSeparator
-//     : ""
-//   ).repeat(additionRepeatTimes);
-// if (options.addition.toString !== "undefined") {
-//   eachPart = eachPart.slice(0, eachPart.length - additionSeparator.length);
-// }
-// const result = eachPart.repeat(repeatTimes, separator);
-
-// if (options.additionRepeatTimes) {
-//   for (let i = 0; i < options.additionRepeatTimes; i++) {
-//     if (i === options.additionRepeatTimes - 1) {
-//       eachPart += options.addition ? options.addition : "";
-//     } else {
-//       eachPart +=
-//         (options.addition ? options.addition : "") +
-//         (options.additionSeparator ? options.additionSeparator : "|");
-//     }
-//   }
-// } else {
-//   eachPart += options.addition
-//     ? options.addition
-//     : "" + options.additionSeparator;
-// }
-// console.log("eachPart", eachPart);
-// let result = eachPart;
-// if (options.repeatTimes) {
-//   for (let i = 0; i < options.repeatTimes; i++) {
-//     if (i === options.repeatTimes - 1) {
-//       result += eachPart;
-//     } else {
-//       result += eachPart + (options.separator ? options.separator : "+");
-//     }
-//   }
-// }
-// console.log("result", result);
-// return result;
-// }
-
-// repeater("STRING", {
-//   repeatTimes: 3,
-//   separator: "**",
-//   addition: "PLUS",
-//   additionRepeatTimes: 3,
-//   additionSeparator: "00",
-// });
 
 module.exports = {
   repeater,
